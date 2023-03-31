@@ -1,6 +1,6 @@
 package org.auwerk.arch.reactivesaga.log;
 
-import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ExecutionLog {
@@ -9,5 +9,5 @@ public interface ExecutionLog {
 
     boolean checkStoryCompletion(UUID storyId);
 
-    Map<UUID, Throwable> mapFailures();
+    Optional<Throwable> getStoryFailure(UUID storyId);
 }

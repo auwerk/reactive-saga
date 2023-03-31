@@ -7,13 +7,14 @@ import java.util.function.Function;
 
 import org.auwerk.arch.reactivesaga.exception.SagaException;
 import org.auwerk.arch.reactivesaga.log.ExecutionLog;
-import org.auwerk.arch.reactivesaga.log.InMemoryExecutionLog;
 
 import io.smallrye.mutiny.Uni;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class Saga {
 
-    private final ExecutionLog log = new InMemoryExecutionLog();
+    private final ExecutionLog log;
     private final List<Story> stories = new ArrayList<>();
     private final SagaContext context = new SagaContext();
 
@@ -28,7 +29,7 @@ public class Saga {
                 .replaceWith(context)
                 .onFailure()
                 .recoverWithUni(compensateAllComplete().invoke(() -> {
-                    throw new SagaException(log.mapFailures());
+                    throw new SagaException();
                 }).replaceWith(context));
     }
 

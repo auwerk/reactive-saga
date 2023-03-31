@@ -7,7 +7,7 @@
 
   <groupId>org.auwerk.arch</groupId>
   <artifactId>reactive-saga</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
 
   <name>reactive-saga</name>
 

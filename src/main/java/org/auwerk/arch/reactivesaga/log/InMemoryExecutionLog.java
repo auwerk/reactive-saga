@@ -2,9 +2,8 @@ package org.auwerk.arch.reactivesaga.log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,9 +24,12 @@ public class InMemoryExecutionLog implements ExecutionLog {
     }
 
     @Override
-    public Map<UUID, Throwable> mapFailures() {
-        return log.stream().filter(entry -> ExecutionEventType.FAILED.equals(entry.event.getType()))
-                .collect(Collectors.toMap(entry -> entry.storyId, entry -> entry.event.getThrowable()));
+    public Optional<Throwable> getStoryFailure(UUID storyId) {
+        return log.stream()
+                .filter(entry -> ExecutionEventType.FAILED.equals(entry.event.getType())
+                        && storyId.equals(entry.storyId))
+                .map(entry -> entry.event.getThrowable())
+                .findFirst();
     }
 
     @RequiredArgsConstructor

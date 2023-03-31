@@ -32,6 +32,10 @@ public class StoryWorkloadMock {
         return shouldFailWith.isPresent();
     }
 
+    public Throwable getThrowable() {
+        return shouldFailWith.orElseThrow();
+    }
+
     public Uni<Void> execute(SagaContext context) {
         return Uni.createFrom().emitter(emitter -> {
             executed = true;

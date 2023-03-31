@@ -1,5 +1,6 @@
 package org.auwerk.arch.reactivesaga.log;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -10,4 +11,6 @@ public interface ExecutionLog {
     boolean checkStoryCompletion(UUID storyId);
 
     Optional<Throwable> getStoryFailure(UUID storyId);
+
+    List<Throwable> getAllFailures();
 }

@@ -32,6 +32,14 @@ public class InMemoryExecutionLog implements ExecutionLog {
                 .findFirst();
     }
 
+    @Override
+    public List<Throwable> getAllFailures() {
+        return log.stream()
+                .filter(entry -> ExecutionEventType.FAILED.equals(entry.event.getType()))
+                .map(entry -> entry.event.getThrowable())
+                .toList();
+    }
+
     @RequiredArgsConstructor
     private static class Entry {
         final UUID storyId;
